@@ -1,5 +1,5 @@
-1. Testing (with python)
-
+### Testing (with python)
+```python
 from avral.tasks import execute
 from avral.io.request import AvralRequest
 
@@ -8,10 +8,10 @@ request = AvralRequest("hello", inputs)
 result = execute.apply_async((request,), queue="tests")
 responce = result.get()
 responce.outputs
+```
 
-
-2. Testing (with avral_web, see avral_web README)
-
+### Testing (with avral_web, see avral_web README)
+```python
 import requests
 
 url = 'http://dev.nextgis.com/avral/json/execute'
@@ -23,3 +23,4 @@ print "task_id: ", task_id
 url = 'http://dev.nextgis.com/avral/json/check/%s' % task_id
 result = requests.get(url)
 print result.text
+```
