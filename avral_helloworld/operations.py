@@ -35,14 +35,20 @@ class HelloWorld(AvralOperation):
         )
     
     def _do_work(self):
+        # Unique code
+        task_id = self.task_id
+
+        #Get config option
+        greeting = self.get_config_option("GREETING", default="Hello")
+
         name = self.getInput(u"name")
         # names = self.getInput(u"names")
         # value = self.getInput(u"value")
         # values = self.getInput(u"values")
         # bbox = self.getInput(u"bbox")
 
-        hello = "Hello, %s!" % name
-        # hellos = ["Hello, %s!" % name for name in names]
+        hello = "%s, %s!" % (greeting, name)
+        # hellos = ["%s, %s!" % (greeting, name) for name in names]
         # x2 = value * 2
         # x2s = [value * 2 for value in values]
         # bbox_area = (bbox["n"] - bbox["s"]) * (bbox["e"] - bbox["w"])
