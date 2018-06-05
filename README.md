@@ -15,6 +15,8 @@ responce.outputs
 import requests
 
 url = 'http://dev.nextgis.com/avral/json/execute'
+
+#Write name of operation here
 data = {'operation':'hello', 'inputs': {"name": 'Bob'}}
 result = requests.post(url, json=data)
 
