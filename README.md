@@ -1,28 +1,29 @@
-### Testing (with python)
+### Testing: run directly\synchronously (without queue)
 ```python
 from avral.tasks import execute
 from avral.io.request import AvralRequest
 
 inputs = {"name": "Alexander"}
 request = AvralRequest("hello", inputs)
-result = execute.apply_async((request,), queue="tests")
+responce = execute(request)
+responce.outputs
+```
+
+### Testing: run asynchronously (with queue)
+Configure avral and Run worker before for queue with name <queue_name> 
+see https://gitlab.com/nextgis_private/avral/wikis/Install,-configure-and-test#test-advanced
+```python
+from avral.tasks import execute
+from avral.io.request import AvralRequest
+
+queue_name = "<queue_name>"
+
+inputs = {"name": "Alexander"}
+request = AvralRequest("hello", inputs)
+result = execute.apply_async((request,), queue=queue_name)
 responce = result.get()
 responce.outputs
 ```
 
-### Testing (with avral_web, see avral_web README)
-```python
-import requests
-
-url = 'http://dev.nextgis.com/avral/json/execute'
-
-#Write name of operation here
-data = {'operation':'hello', 'inputs': {"name": 'Bob'}}
-result = requests.post(url, json=data)
-
-task_id = result.json().get("task_id")
-print "task_id: ", task_id
-url = 'http://dev.nextgis.com/avral/json/check/%s' % task_id
-result = requests.get(url)
-print result.text
-```
+### Testing (with avral_web)
+see https://gitlab.com/nextgis_private/avral/wikis/Install,-configure-and-test#%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D0%BA-%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D1%82%D0%BE%D0%B9-%D0%B2-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B5-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81-%D0%BA-avral-web
