@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import os
-
-from celery.utils.log import get_task_logger
+import time
 
 from avral import avral
 from avral.operation import AvralOperation
 from avral.io.types import *
 
 from avral.io.responce import AvralResponce
-
-logger = get_task_logger(__name__)
 
 
 class HelloWorld(AvralOperation):
@@ -40,6 +37,10 @@ class HelloWorld(AvralOperation):
 
         #Get config option
         greeting = self.get_config_option("GREETING", default="Hello")
+
+        self.logger.info("Start hello!")
+        time.sleep(5)
+        self.logger.info("Stop hello!")
 
         name = self.getInput(u"name")
         # names = self.getInput(u"names")
