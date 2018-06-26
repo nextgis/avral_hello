@@ -38,6 +38,7 @@ class HelloWorld(AvralOperation):
             },
             outputs={
                 u"hello": StringType(length=25),
+                u"file": FileType(),
                 # u"hellos": ArrayType(StringType(length=25)), 
                 # u"x2": FloatType(unsigned=True),
                 # u"x2s": ArrayType(FloatType()),
@@ -86,3 +87,8 @@ class HelloWorld(AvralOperation):
         # self.setOutput(u"x2s", x2s)
         # self.setOutput(u"bbox_area", bbox_area)
         # self.setOutput(u"hellos_from_json", hellos_from_json)
+
+        greeting_file = os.path.join(self.workdir, "greeting.txt")
+        with open(greeting_file, "w") as f:
+            f.write(hello)
+        self.setOutput(u"file", greeting_file)
