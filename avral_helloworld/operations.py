@@ -12,6 +12,19 @@ from avral.io.responce import AvralResponce
 
 class HelloWorld(AvralOperation):
     """docstring for HelloWorld"""
+    json_schema1 = {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties" : {
+                "name" : {"type" : "string"},
+                "greeting" : {"type" : "string"},
+            },
+        },
+        "minItems" : 2,
+        "maxItems" : 5,
+    }
+
     def __init__(self):
         super(HelloWorld, self).__init__(
             name="hello",
@@ -21,6 +34,7 @@ class HelloWorld(AvralOperation):
                 # u"value": FloatType(unsigned=True),
                 # u"values": ArrayType(FloatType()),
                 # u"bbox": BoundingBoxType(max_n=60),
+                # u"json": JsonType(HelloWorld.json_schema1),
             },
             outputs={
                 u"hello": StringType(length=25),
@@ -28,6 +42,7 @@ class HelloWorld(AvralOperation):
                 # u"x2": FloatType(unsigned=True),
                 # u"x2s": ArrayType(FloatType()),
                 # u"bbox_area": FloatType(),
+                # u"hellos_from_json": ArrayType(StringType()),
             },
         )
     
@@ -47,6 +62,7 @@ class HelloWorld(AvralOperation):
         # value = self.getInput(u"value")
         # values = self.getInput(u"values")
         # bbox = self.getInput(u"bbox")
+        # json_data = self.getInput(u"json")
 
         hello = "%s, %s!" % (greeting, name)
         # hellos = ["%s, %s!" % (greeting, name) for name in names]
@@ -58,8 +74,15 @@ class HelloWorld(AvralOperation):
         #   Будет удалена после завершения задачи
         # self.workdir
 
+        # hellos_from_json = []
+        # for options in json_data:
+        #     hellos_from_json.append(
+        #         "%s, %s!" % (options["greeting"], options["name"])
+        #     )
+
         self.setOutput(u"hello", hello)
         # self.setOutput(u"hellos", hellos)
         # self.setOutput(u"x2", x2)
         # self.setOutput(u"x2s", x2s)
         # self.setOutput(u"bbox_area", bbox_area)
+        # self.setOutput(u"hellos_from_json", hellos_from_json)
