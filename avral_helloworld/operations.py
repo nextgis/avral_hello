@@ -25,6 +25,13 @@ class HelloWorld(AvralOperation):
         "maxItems" : 5,
     }
 
+    description = {
+        'en': 'Operation for <b>test</b> purposes.' +
+        ' Return greeting string for given name.',
+        'ru': 'Опе рация для проведения <b>теста</b>.' +
+        ' Возвращает строку приветствия для заданного имени.',
+    }
+
     def __init__(self):
         super(HelloWorld, self).__init__(
             name="hello",
@@ -38,15 +45,15 @@ class HelloWorld(AvralOperation):
             },
             outputs={
                 u"hello": StringType(length=25),
-                u"file": FileType(),
+                # u"file": FileType(),
                 # u"hellos": ArrayType(StringType(length=25)), 
                 # u"x2": FloatType(unsigned=True),
                 # u"x2s": ArrayType(FloatType()),
                 # u"bbox_area": FloatType(),
                 # u"hellos_from_json": ArrayType(StringType()),
-            },
+            }
         )
-    
+
     def _do_work(self):
         # Unique code
         task_id = self.task_id
@@ -88,7 +95,7 @@ class HelloWorld(AvralOperation):
         # self.setOutput(u"bbox_area", bbox_area)
         # self.setOutput(u"hellos_from_json", hellos_from_json)
 
-        greeting_file = os.path.join(self.workdir, "greeting.txt")
-        with open(greeting_file, "w") as f:
-            f.write(hello)
-        self.setOutput(u"file", greeting_file)
+        # greeting_file = os.path.join(self.workdir, "greeting.txt")
+        # with open(greeting_file, "w") as f:
+        #     f.write(hello)
+        # self.setOutput(u"file", greeting_file)
