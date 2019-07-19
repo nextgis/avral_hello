@@ -32,6 +32,7 @@ class HelloWorld(AvralOperation):
         ' Возвращает строку приветствия для заданного имени.',
     }
 
+    #length - это максимальная длинна, а не минимальная
     def __init__(self):
         super(HelloWorld, self).__init__(
             name="hello",
