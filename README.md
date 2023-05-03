@@ -1,7 +1,8 @@
 Build and run container
 
 ```
-git clone 
+git clone https://gitlab.com/nextgis/toolbox_public/avral_helloworld.git --depth 1
+cd avral_helloworld
 docker build -t avral_helloworld:latest .
 docker run --rm -t -i -v ${PWD}:/avral_helloworld avral_helloworld:latest  /bin/bash
 
