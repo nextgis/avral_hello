@@ -1,3 +1,23 @@
+Build and run container
+
+```
+git clone 
+docker build -t avral_helloworld:latest .
+docker run --rm -t -i -v ${PWD}:/avral_helloworld avral_helloworld:latest  /bin/bash
+
+```
+
+Run in container
+
+```
+cd /avral_helloworld
+pip install -e /avral_helloworld
+avral-exec  hello 
+```
+
+
+
+
 ### Testing: run directly\synchronously (without queue)
 ```python
 from avral.tasks import execute
