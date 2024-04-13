@@ -37,12 +37,13 @@ class HelloWorld(AvralOperation):
         super(HelloWorld, self).__init__(
             name="hello",
             inputs={
-                u"name": StringType(length=5),
+                u"name": StringType(),
                 # u"names": ArrayType(StringType(length=5)),
                 # u"value": FloatType(unsigned=True),
                 # u"values": ArrayType(FloatType()),
                 # u"bbox": BoundingBoxType(max_n=60),
                 # u"json": JsonType(HelloWorld.json_schema1),
+                u"sleep": StringType(),
             },
             outputs={
                 u"hello": StringType(length=25),
@@ -61,19 +62,26 @@ class HelloWorld(AvralOperation):
 
         #Get config option
         greeting = self.get_config_option("GREETING", default="Hello")
-
         self.logger.info("Start hello!")
-        time.sleep(5)
-        self.logger.info("Stop hello!")
-
         name = self.getInput(u"name")
         # names = self.getInput(u"names")
         # value = self.getInput(u"value")
         # values = self.getInput(u"values")
         # bbox = self.getInput(u"bbox")
         # json_data = self.getInput(u"json")
-
+        try:
+            sleep = int(self.getInput(u"sleep"))
+            if sleep>999:
+                sleep = 999
+            elif sleep<0:
+                sleep = 0 
+        except Exception:
+            sleep = 0
+        
+        self.logger.info(f"Sleep {str(sleep)} seconds")
+        time.sleep(sleep)
         hello = "%s, %s!" % (greeting, name)
+        self.logger.info("Stop hello!")
         # hellos = ["%s, %s!" % (greeting, name) for name in names]
         # x2 = value * 2
         # x2s = [value * 2 for value in values]

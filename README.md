@@ -5,7 +5,6 @@ git clone https://gitlab.com/nextgis/toolbox_public/avral_helloworld.git --depth
 cd avral_helloworld
 docker build -t avral_helloworld:latest .
 docker run --rm -t -i -v ${PWD}:/avral_helloworld avral_helloworld:latest  /bin/bash
-
 ```
 
 Run in container
@@ -13,9 +12,21 @@ Run in container
 ```
 cd /avral_helloworld
 pip install -e /avral_helloworld
-avral-exec  hello 
 ```
 
+Test
+
+```
+avral-exec hello "name" 5
+avral-exec hello "name" ""
+```
+
+Deploy
+
+```
+docker tag avral_helloworld:latest harbor.nextgis.net/toolbox-workers/hello:prod
+docker image push harbor.nextgis.net/toolbox-workers/hello:prod
+```
 
 ## Call of this insturument on server ##
 
