@@ -1,17 +1,17 @@
 Build and run container
 
 ```
-git clone https://gitlab.com/nextgis/toolbox_public/avral_helloworld.git --depth 1
-cd avral_helloworld
-docker build -t avral_helloworld:latest .
-docker run --rm -t -i -v ${PWD}:/avral_helloworld avral_helloworld:latest  /bin/bash
+git clone https://gitlab.com/nextgis/toolbox_public/avral_hello.git --depth 1
+cd avral_hello
+docker build -t avral_hello:latest .
+docker run --rm -t -i -v ${PWD}:/avral_hello avral_hello:latest  /bin/bash
 ```
 
 Run in container
 
 ```
-cd /avral_helloworld
-pip install -e /avral_helloworld
+cd /avral_hello
+pip install -e /avral_hello
 ```
 
 Test
@@ -24,7 +24,8 @@ avral-exec hello "name" ""
 Deploy
 
 ```
-docker tag avral_helloworld:latest harbor.nextgis.net/toolbox-workers/hello:prod
+docker build -t avral_hello:latest .
+docker tag avral_hello:latest harbor.nextgis.net/toolbox-workers/hello:prod
 docker image push harbor.nextgis.net/toolbox-workers/hello:prod
 ```
 
