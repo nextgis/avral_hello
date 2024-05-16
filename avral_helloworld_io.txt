@@ -1,4 +1,0 @@
-Inputs:
-[["name", {"__type__": "StringType", "length": -1}], ["sleep", {"__type__": "StringType", "length": -1}]]
-Outputs:
-[["hello", {"__type__": "StringType", "length": 25}]]
