@@ -38,8 +38,8 @@ from avral.io.request import AvralRequest
 
 inputs = {"name": "Alexander"}
 request = AvralRequest("hello", inputs)
-responce = execute(request)
-responce.outputs
+response = execute(request)
+response.outputs
 ```
 
 ### Testing: run asynchronously (with queue)
@@ -54,8 +54,8 @@ queue_name = "<queue_name>"
 inputs = {"name": "Alexander"}
 request = AvralRequest("hello", inputs)
 result = execute.apply_async((request,), queue=queue_name)
-responce = result.get()
-responce.outputs
+response = result.get()
+response.outputs
 ```
 
 ### Testing (with avral_web)
