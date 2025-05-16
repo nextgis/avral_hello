@@ -9,20 +9,6 @@ from avral.io.types import *
 
 
 class HelloWorld(AvralOperation):
-    """docstring for HelloWorld"""
-    json_schema1 = {
-        "type": "array",
-        "items": {
-            "type": "object",
-            "properties" : {
-                "name" : {"type" : "string"},
-                "greeting" : {"type" : "string"},
-            },
-        },
-        "minItems" : 2,
-        "maxItems" : 5,
-    }
-
     description = {
         'en': 'Operation for <b>test</b> purposes.' +
         ' Return greeting string for given name.',
