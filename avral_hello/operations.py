@@ -1,67 +1,75 @@
 # -*- coding: utf-8 -*-
 
-import os
 import time
 
-from avral import avral
+from avral.i18n import LStr
 from avral.operation import AvralOperation
-from avral.io.types import *
+from avral.io import StringType, Input, Output
 
 
 class HelloWorld(AvralOperation):
-    description = {
-        'en': 'Operation for <b>test</b> purposes.' +
-        ' Return greeting string for given name.',
-        'ru': 'Опе рация для проведения <b>теста</b>.' +
-        ' Возвращает строку приветствия для заданного имени.',
-    }
+    avral_name = "hello"
 
-    #length - это максимальная длинна, а не минимальная
-    def __init__(self):
-        super(HelloWorld, self).__init__(
-            name="hello",
-            inputs={
-                u"name": StringType(),
-                # u"names": ArrayType(StringType(length=5)),
-                # u"value": FloatType(unsigned=True),
-                # u"values": ArrayType(FloatType()),
-                # u"bbox": BoundingBoxType(max_n=60),
-                # u"json": JsonType(HelloWorld.json_schema1),
-                u"sleep": StringType(),
-            },
-            outputs={
-                u"hello": StringType(length=25),
-                # u"file": FileType(),
-                # u"hellos": ArrayType(StringType(length=25)), 
-                # u"x2": FloatType(unsigned=True),
-                # u"x2s": ArrayType(FloatType()),
-                # u"bbox_area": FloatType(),
-                # u"hellos_from_json": ArrayType(StringType()),
-            }
-        )
+    avral_alias = LStr(
+        en="Hello, World!",
+        ru="Привет, Мир!",
+    )
+
+    avral_description = LStr(
+        en="Allows to test Toolbox service. Returns a greeting string for a given name.",
+        ru="Тестирование сервиса Toolbox. Возвращает строку приветствия для заданного имени.",
+    )
+
+    # Input parameters
+    name: Input[StringType] = StringType(
+        alias=LStr(en="Name", ru="Имя"),
+        description=LStr(
+            en="Please, type your name.",
+            ru="Пожалуйста, укажите, как к вам обращаться.",
+        ),
+    )
+
+    sleep: Input[StringType] = StringType(
+        alias=LStr(en="Delayed start", ru="Отложенный запуск"),
+        description=LStr(
+            en="Optional field. You can set a delay for the tool's run in seconds.",
+            ru="Опциональное поле. Можно отложить запуск инструмента, указав задержку в секундах.",
+        ),
+        optional=True,
+    )
+
+    # Output parameters
+    hello: Output[StringType] = StringType(
+        alias=LStr(en="", ru=""),
+        description=LStr(
+            en="",
+            ru="",
+        ),
+        length=50,
+    )
 
     def _do_work(self):
         # Unique code
         task_id = self.task_id
 
-        #Get config option
+        # Get config option
         greeting = self.get_config_option("GREETING", default="Hello")
         self.logger.info("Start hello!")
-        name = self.getInput(u"name")
+        name = self.get_input("name")
         # names = self.getInput(u"names")
         # value = self.getInput(u"value")
         # values = self.getInput(u"values")
         # bbox = self.getInput(u"bbox")
         # json_data = self.getInput(u"json")
         try:
-            sleep = int(self.getInput(u"sleep"))
-            if sleep>999:
+            sleep = int(self.get_input("sleep"))
+            if sleep > 999:
                 sleep = 999
-            elif sleep<0:
-                sleep = 0 
+            elif sleep < 0:
+                sleep = 0
         except Exception:
             sleep = 0
-        
+
         self.logger.info(f"Sleep {str(sleep)} seconds")
         time.sleep(sleep)
         hello = "%s, %s!" % (greeting, name)
@@ -70,7 +78,7 @@ class HelloWorld(AvralOperation):
         # x2 = value * 2
         # x2s = [value * 2 for value in values]
         # bbox_area = (bbox["n"] - bbox["s"]) * (bbox["e"] - bbox["w"])
-        
+
         # Директория для хранения временных файлов
         #   Будет удалена после завершения задачи
         # self.workdir
@@ -81,7 +89,7 @@ class HelloWorld(AvralOperation):
         #         "%s, %s!" % (options["greeting"], options["name"])
         #     )
 
-        self.setOutput(u"hello", hello)
+        self.set_output("hello", hello)
         # self.setOutput(u"hellos", hellos)
         # self.setOutput(u"x2", x2)
         # self.setOutput(u"x2s", x2s)
