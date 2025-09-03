@@ -49,7 +49,7 @@ class HelloWorld(AvralOperation):
     def _do_work(self):
         # Get config option
         greeting = self.get_config_option("GREETING", default="Hello")
-        self.logger.info("Start hello!")
+        self.logger.info("Start hello1234123412341234!")
         name = self.get_input("name")
         # names = self.getInput(u"names")
         # value = self.getInput(u"value")
