@@ -5,7 +5,7 @@ requires = [
 ]
 
 setup(
-    name="avral_helloworld",
+    name="avral_hello",
     version="0.0.1",
     description="Extension for NextGIS Distributed Geo Task",
     classifiers=[

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import time
 
 from avral.i18n import LStr
@@ -49,9 +47,6 @@ class HelloWorld(AvralOperation):
     )
 
     def _do_work(self):
-        # Unique code
-        task_id = self.task_id
-
         # Get config option
         greeting = self.get_config_option("GREETING", default="Hello")
         self.logger.info("Start hello!")

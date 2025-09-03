@@ -1,4 +1,4 @@
 FROM harbor.nextgis.net/toolbox-base/ubuntu2204:6
 
-COPY . /opt/avral_helloworld
-RUN pip3 install --no-cache-dir /opt/avral_helloworld
+COPY . /opt/avral_hello
+RUN pip3 install --no-cache-dir /opt/avral_hello
