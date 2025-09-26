@@ -1,8 +1,8 @@
 import time
 
 from avral.i18n import LStr
+from avral.io import Input, Output, StringType
 from avral.operation import AvralOperation
-from avral.io import StringType, Input, Output
 
 
 class HelloWorld(AvralOperation):
