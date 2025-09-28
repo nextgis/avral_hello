@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "avral_hello"
+version = "0.0.0"
+dependencies = ["avral"]
+
+[project.entry-points.avral_operations]
+hello = "avral_hello.operations:HelloWorld"
+
+[tool.setuptools.packages.find]
+include = ["avral_hello"]
