@@ -1,11 +1,11 @@
 import time
 
 from avral.i18n import LStr
-from avral.io import Input, Output, StringType
+from avral.io import Input, IntType, Output, StringType
 from avral.operation import AvralOperation
 
 
-class HelloWorld(AvralOperation):
+class HelloTool(AvralOperation):
     avral_name = "hello"
 
     avral_alias = LStr(
@@ -27,17 +27,17 @@ class HelloWorld(AvralOperation):
         ),
     )
 
-    sleep: Input[StringType] = StringType(
+    sleep: Input[IntType] = IntType(
         alias=LStr(en="Delayed start", ru="Отложенный запуск"),
         description=LStr(
-            en="Optional field. You can set a delay for the tool's run in seconds.",
-            ru="Опциональное поле. Можно отложить запуск инструмента, указав задержку в секундах.",
+            en="You can set a delay for the tool's run in seconds.",
+            ru="Можно отложить запуск инструмента, указав задержку в секундах.",
         ),
         optional=True,
     )
 
     # Output parameters
-    hello: Output[StringType] = StringType(
+    result: Output[StringType] = StringType(
         alias=LStr(en="", ru=""),
         description=LStr(
             en="",
@@ -47,51 +47,13 @@ class HelloWorld(AvralOperation):
     )
 
     def _do_work(self):
-        # Get config option
-        greeting = self.get_config_option("GREETING", default="Hello")
-        self.logger.info("Start hello!")
-        name = self.get_input("name")
-        # names = self.getInput(u"names")
-        # value = self.getInput(u"value")
-        # values = self.getInput(u"values")
-        # bbox = self.getInput(u"bbox")
-        # json_data = self.getInput(u"json")
-        try:
-            sleep = int(self.get_input("sleep"))
-            if sleep > 999:
-                sleep = 999
-            elif sleep < 0:
-                sleep = 0
-        except Exception:
-            sleep = 0
+        name_value = self.get_input("name")
 
-        self.logger.info(f"Sleep {str(sleep)} seconds")
-        time.sleep(sleep)
-        hello = "%s, %s!" % (greeting, name)
-        self.logger.info("Stop hello!")
-        # hellos = ["%s, %s!" % (greeting, name) for name in names]
-        # x2 = value * 2
-        # x2s = [value * 2 for value in values]
-        # bbox_area = (bbox["n"] - bbox["s"]) * (bbox["e"] - bbox["w"])
+        if sleep_value := self.get_input("sleep"):
+            assert type(sleep_value) is int
+            sleep_value = min(sleep_value, 600)
+            self.logger.info("Sleeping %d seconds", sleep_value)
+            time.sleep(sleep_value)
 
-        # Директория для хранения временных файлов
-        #   Будет удалена после завершения задачи
-        # self.workdir
-
-        # hellos_from_json = []
-        # for options in json_data:
-        #     hellos_from_json.append(
-        #         "%s, %s!" % (options["greeting"], options["name"])
-        #     )
-
-        self.set_output("hello", hello)
-        # self.setOutput(u"hellos", hellos)
-        # self.setOutput(u"x2", x2)
-        # self.setOutput(u"x2s", x2s)
-        # self.setOutput(u"bbox_area", bbox_area)
-        # self.setOutput(u"hellos_from_json", hellos_from_json)
-
-        # greeting_file = os.path.join(self.workdir, "greeting.txt")
-        # with open(greeting_file, "w") as f:
-        #     f.write(hello)
-        # self.setOutput(u"file", greeting_file)
+        result = f"Hello, {name_value}"
+        self.set_output("result", result)
