@@ -60,5 +60,5 @@ class HelloTool(AvralOperation):
         if language == "ru":
             hello = "Привет"
 
-        result = f"{hello}, {name_value}"
+        result = f"{hello}, {name_value}!"
         self.set_output("result", result)
