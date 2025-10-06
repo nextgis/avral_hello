@@ -55,5 +55,10 @@ class HelloTool(AvralOperation):
             self.logger.info("Sleeping %d seconds", sleep_value)
             time.sleep(sleep_value)
 
-        result = f"Hello, {name_value}"
+        language = self.get_language()
+        hello = "Hello"
+        if language == "ru":
+            hello = "Привет"
+
+        result = f"{hello}, {name_value}"
         self.set_output("result", result)
