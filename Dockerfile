@@ -1,4 +1,4 @@
-FROM harbor.nextgis.net/toolbox-base/ubuntu2204:8
+FROM harbor.nextgis.net/toolbox-base/ubuntu2204:9
 
 COPY . /opt/avral_hello
 RUN pip install --no-cache-dir --editable /opt/avral_hello
