@@ -31,7 +31,8 @@ class HelloTool(AvralOperation):
         alias=LStr(en="Delayed start", ru="Отложенный запуск"),
         description=LStr(
             en="You can set a delay for the tool's run in seconds.",
-            ru="Можно отложить запуск инструмента, указав задержку в секундах.",
+            ru="Можно отложить запуск инструмента, указав задержку в секундах.\n"
+            + "При указании значения более 600, будет использовано значение 600.",
         ),
         optional=True,
     )
